@@ -1,0 +1,94 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Add your head content here -->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="{% static 'Jquery/code.jquery.com_jquery-3.7.1.min.js' %}"></script>
+    <script src="{% static 'bootstrap-4.6.2-dist/js/bootstrap.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
+    <!-- AOS -->
+    <link href="{% static 'AOS/unpkg.com_aos@2.3.1_dist_aos.css' %}" rel="stylesheet">
+    <script src="{% static 'AOS/unpkg.com_aos@2.3.1_dist_aos.js' %}"></script>
+</head>
+<body>
+    <!-- navbar -->
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+            <a class="navbar-brand" href="{% url 'index' %}">Expense Tracker</a>
+            <!-- Add Django URL for 'home' in href -->
+            <button class="navbar-toggler" type="button"
+                data-toggle="collapse"
+                data-target="#navbarNav" aria-controls="navbarNav"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'index' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'signup' %}">SignUp</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <img src="{% static 'Assets/ii.png' %}" alt srcset style="height: 100%; width: 100%; margin-top: 70px;">
+    </div>
+
+            <!-- animation of form -->
+            <div class="col-lg-12 mb-11 " style="margin: 0%;overflow-x: hidden;">
+                <div data-aos="fade-left"
+                    data-aos-easing="linear"
+                    data-aos-duration="500">
+                    <div>
+                        <div>
+                            <!-- form -->
+                            <div class="container col-5"
+                                style="margin-left: auto;margin-right: auto;border: 2px solid;margin-top:5%;margin-bottom:5%;padding-top: 1%;padding-bottom: 2%;">
+                                <h1 style="text-align: center;">Login</h1>
+                                <form action="{% url 'login' %}" method="post">
+                                    {% csrf_token %}
+                                    <div>
+                                        <label class="col-form-label">Username</label>
+                                        <input type="text" class="form-control" name="username">
+                                    </div>
+                                    <div>
+                                        <label class="col-form-label">Password</label>
+                                        <input type="password" class="form-control" name="password">
+                                    </div>
+                                    <div>
+                                        <br>
+                                        <button class="btn btn-primary"
+                                            type="submit">Login</button>
+                                        <a href="{% url 'signup' %}">Don't have account?Sign Up</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <script>
+            AOS.init();
+        </script>
+                        </body>
+                    
+</body>
+
+<!-- footer -->
+<footer class="blockquote-footer" >
+    <p style="font-weight: bold;">Developed By:</p>
+    <p><a href="https://my-portfolio-cqip.vercel.app/" target="_blank">Muhammad Amjad</a></p>
+</footer>
+        </html>

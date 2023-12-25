@@ -1,0 +1,40 @@
+@login_required
+def add_expense(request):
+    expenses = Expense.objects.all()
+    e_source=ExpenseSource.objects.all()
+    print(e_source.exists())
+    if expenses.exists():
+        for expense in expenses:
+            print(f"User: {expense.user.username}, Source: {expense.source.source_name}, Total Amount: {expense.total_amount}, Spent Amount: {expense.spent_amount}")
+    else:
+        print("There are no expenses in the database.")
+    if request.method == 'POST':
+        print('Check 1:',e_source.exists())
+
+        form = ExpenseForm(request.POST)
+        if form.is_valid():
+            print('Check :',e_source.exists())
+
+            source_name = form.cleaned_data['source_name']
+            total_amount = form.cleaned_data['total_amount']
+            user = request.user  
+            print('Check 3 :',e_source.exists())
+
+# yaha source ko create krna hay 
+            source = ExpenseSource.objects.get(source_name=source_name)
+            print('Check 4:',e_source.exists())
+
+
+            print('Check 4.5:',e_source.exists())
+            
+            expense = Expense.objects.create(user=user, source=source, total_amount=total_amount)
+            print('Check 5:',e_source.exists())
+            
+            expenses = Expense.objects.all()
+            print('Check 6:',e_source.exists())
+
+            return render(request, 'add_expense.html', {'form': form, 'expenses': expenses})
+    else:
+        form = ExpenseForm()
+
+    return render(request, 'add_expense.html', {'form': form, 'expenses': expenses})

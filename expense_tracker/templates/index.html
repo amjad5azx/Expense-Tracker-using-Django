@@ -1,0 +1,318 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Expense Tracker</title>
+
+        <link rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <script
+            src="{% static 'Jquery/code.jquery.com_jquery-3.7.1.min.js' %}"></script>
+        <script
+            src="{% static 'bootstrap-4.6.2-dist/js/bootstrap.min.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'style.css' %}">
+
+        <!-- AOS -->
+        <link href="{% static 'AOS/unpkg.com_aos@2.3.1_dist_aos.css' %}"
+            rel="stylesheet">
+        <script
+            src="{% static 'AOS/unpkg.com_aos@2.3.1_dist_aos.js' %}"></script>
+    </head>
+    <body>
+        <!-- navbar -->
+        <div>
+            <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+                <a class="navbar-brand" href="{% url 'index' %}">Expense
+                    Tracker</a>
+                <!-- Add Django URL for 'home' in href -->
+                <button class="navbar-toggler" type="button"
+                    data-toggle="collapse"
+                    data-target="#navbarNav" aria-controls="navbarNav"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link"
+                                href="{% url 'index' %}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#SignUp">SignUp</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link"
+                                href="{% url 'login' %}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">About</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+           
+        </div>
+
+
+        <div class="container-fluid no-gutters m-0 p-0"
+            style=" overflow-x: hidden;">
+            <div class="row no-gutters p-0 m-0">
+                <div class="col-md-12 p-0 no-gutters m-0" style="height: 100%;width: 100%; ">
+                    <img src="{% static 'Assets/ii.png' %}" alt
+                    style=" background:cover;">
+                </div>
+            </div>
+            <div>
+                <div class="row mt-5">
+                <div class="col-sm-12 text-center ">
+                    <div data-aos="fade-down"
+                        data-aos-easing="linear"
+                        data-aos-duration="500">
+                        <div>
+                            <h1
+                                style="text-align: center;padding-bottom: 3%;">Welcome
+                                to Expense Tracker</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <hr>
+            <!-- first portion -->
+                <div class="row">
+                    <div class="col-lg-8 ">
+                        <div data-aos="fade-right"
+                            data-aos-easing="linear"
+                            data-aos-duration="500">
+                            <div>
+                                <div class="p-5">
+                                    <h2 style="text-align: center; ">Expense
+                                        Tracker</h2>
+                                    <p class="">Lorem ipsum dolor sit amet consectetur,
+                                        adipisicing elit. Iste corrupti
+                                        excepturi dolores distinctio, mollitia
+                                        praesentium aperiam voluptatibus ullam
+                                        iusto! Quae, tempora? Saepe explicabo
+                                        sed tempore reiciendis culpa distinctio
+                                        corporis numquam ad! Vero eveniet eaque
+                                        cupiditate dolore consectetur omnis sint
+                                        velit id, dolores molestiae esse facilis
+                                        rerum. Ratione, alias placeat doloribus
+                                        culpa atque voluptas soluta numquam,
+                                        ullam officia provident inventore
+                                        ducimus quaerat architecto vitae saepe
+                                        nesciunt possimus. Sequi alias quis
+                                        minima voluptatibus sit, illo numquam
+                                        eligendi asperiores, voluptatem hic nemo
+                                        nostrum architecto a, tempore blanditiis
+                                        aut praesentium consectetur labore
+                                        maiores laboriosam. Aliquam accusantium
+                                        facilis autem doloribus veniam culpa id
+                                        incidunt et iure eaque, impedit ipsam
+                                        delectus minima fuga voluptatum,
+                                        voluptatibus iusto inventore? Assumenda,
+                                        perferendis deserunt! Est, perspiciatis
+                                        vero quaerat nemo maiores aperiam
+                                        pariatur unde ex laudantium illum,
+                                        placeat adipisci dolore nobis temporibus
+                                        iusto. Molestias maiores fugiat ab
+                                        commodi adipisci ipsam quidem saepe,
+                                        quas sint voluptas consequatur delectus
+                                        beatae esse, at consequuntur voluptatum
+                                        neque repudiandae dolores nostrum iusto
+                                        ut corporis. Iste placeat nihil rem non
+                                        saepe explicabo at. Maiores similique
+                                        eligendi, suscipit architecto labore qui
+                                        tempora officiis corporis quos quasi
+                                        quo? Voluptas!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 mb-11 pt-5">
+                        <div data-aos="fade-left"
+                            data-aos-easing="linear"
+                            data-aos-duration="500">
+                            <div>
+                                <div class="p-5">
+                                    <!-- Yaha kaam kr raha hu -->
+                                    <img src="{% static 'Assets/expense.png' %}"
+                                        alt="Expense Image" class="img-fluid" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <!-- second portion -->
+            <div>
+                <div class="row">
+                    <div class="col-lg-4 mb-11 text-center">
+                        <div data-aos="fade-left"
+                            data-aos-easing="linear"
+                            data-aos-duration="500">
+                            <div>
+                                <div class="p-5">
+                                    <img
+                                        src="{% static 'Assets/istockphoto-1194918291-612x612.jpg' %}"
+                                        alt="Expense Image" class="img-fluid" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8 mb-11">
+                        <div data-aos="fade-right"
+                            data-aos-easing="linear"
+                            data-aos-duration="500">
+                            <div>
+                                <div class="p-5">
+                                    <h2 style="text-align: center;">Expense
+                                        Tracker</h2>
+                                    <p>Lorem ipsum dolor sit amet consectetur
+                                        adipisicing elit. Perspiciatis quo
+                                        suscipit, eum molestiae asperiores
+                                        cupiditate inventore maiores voluptatem
+                                        dolores repellendus non. Quas, suscipit?
+                                        Id, similique at ab fugit maiores optio.
+                                        Facilis nam, esse laboriosam architecto
+                                        veniam tenetur quasi harum, eos quaerat
+                                        soluta dignissimos quibusdam quo. At,
+                                        nulla laborum minus nobis corrupti velit
+                                        obcaecati veniam inventore quasi
+                                        suscipit nihil, eveniet enim repellendus
+                                        consequatur quaerat minima nemo eos
+                                        tenetur facere magni esse modi explicabo
+                                        necessitatibus? Explicabo illo quidem
+                                        optio culpa, non autem porro repellendus
+                                        animi consectetur temporibus doloribus
+                                        sequi libero? Voluptate ipsum magnam
+                                        totam minima ullam veniam sed placeat
+                                        aut, animi architecto.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- last portion -->
+            <section id="SignUp">
+                <hr>
+                <div class="mt-md-5 mb-md-3">
+                    <div class="col-sm-12 mb-11 text-center">
+                        <div data-aos="zoom-out"
+                            data-aos-easing="linear"
+                            data-aos-duration="500">
+                            <div>
+                                <h1 style="text-align: center;">Want to
+                                    Join?</h1>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 mb-11">
+                        <div data-aos="fade-down"
+                            data-aos-easing="linear"
+                            data-aos-duration="500">
+                            <div class="container col-md-6"
+                                style="margin-left: auto;margin-right: auto;padding-top: 1%;padding-bottom: 2%;">
+                                <div>
+
+                                    <form action="{% url 'signup' %}"
+                                        method="post" class="container"
+                                        style="border: 2px solid;padding: 30px;">
+                                        {% csrf_token %}
+                                        <h1 style="text-align: center;">Sign
+                                            Up</h1>
+                                        <hr>
+                                        <!-- error message -->
+                                        {% if messages %}
+                                        <ul class="messages"
+                                            style="color: red;">
+                                            {% for message in messages %}
+                                            <li {% if message.tags %}
+                                                class="{{ message.tags }}"
+                                                {% endif %}>{{ message }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                        {% endif %}
+
+                                        <div>
+                                            <label
+                                                class="col-form-label">First 
+                                                Name</label>
+                                            <input type="text"
+                                                class="form-control"
+                                                name="firstname" required>
+                                        </div>
+                                        <div>
+                                            <label
+                                                class="col-form-label">Last 
+                                                Name</label>
+                                            <input type="text"
+                                                class="form-control"
+                                                name="lastname" required>
+                                        </div>
+                                        <div>
+                                            <label
+                                                class="col-form-label">Username</label>
+                                            <input type="text"
+                                                class="form-control"
+                                                name="username" required>
+                                        </div>
+                                        <div>
+                                            <label
+                                                class="col-form-label">Email</label>
+                                            <input type="email"
+                                                class="form-control"
+                                                name="email" required>
+                                        </div>
+                                        <div>
+                                            <label
+                                                class="col-form-label">Password</label>
+                                            <input type="password"
+                                                class="form-control"
+                                                name="password" required>
+                                        </div>
+                                        <div>
+                                            <label
+                                                class="col-form-label">Confirm
+                                                Password</label>
+                                            <input type="password"
+                                                class="form-control"
+                                                name="cpassword" required>
+                                        </div>
+                                        <div>
+                                            <br>
+                                            <button class="btn btn-primary"
+                                                type="submit">Sign Up</button>
+                                            <a href="{% url 'login' %}">Already
+                                                have account? Sign In</a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <script>
+        AOS.init();
+    </script>
+    </body>
+
+    <!-- footer -->
+    <footer class="blockquote-footer">
+        <p style="font-weight: bold;">Developed By:</p>
+        <p><a href="https://my-portfolio-cqip.vercel.app/"
+                target="_blank">Muhammad Amjad</a></p>
+    </footer>
+</html>

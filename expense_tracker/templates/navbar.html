@@ -1,0 +1,10 @@
+<nav>
+    <ul>
+        <li><a href="{% url 'fullname' %}">Full Name</a></li>
+        <li><a href="{% url 'username' %}">Username</a></li>
+        <li><a href="{% url 'email' %}">Email</a></li>
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'logout' %}">Logout</a></li>
+        {% endif %}
+    </ul>
+</nav>

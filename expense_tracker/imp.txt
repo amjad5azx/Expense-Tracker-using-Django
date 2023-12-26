@@ -1,40 +1,37 @@
-@login_required
-def add_expense(request):
-    expenses = Expense.objects.all()
-    e_source=ExpenseSource.objects.all()
-    print(e_source.exists())
-    if expenses.exists():
-        for expense in expenses:
-            print(f"User: {expense.user.username}, Source: {expense.source.source_name}, Total Amount: {expense.total_amount}, Spent Amount: {expense.spent_amount}")
-    else:
-        print("There are no expenses in the database.")
-    if request.method == 'POST':
-        print('Check 1:',e_source.exists())
+<div style="margin-top: 10%;">
+                <div class="container col-md-5 shadow-lg"
+                    style="margin-left: auto;margin-right: auto;border: 2px solid;margin-top:5%;margin-bottom:5%;padding-top: 1%;padding-bottom: 2%;">
+                    <h1 style="text-align: center;">Add Source</h1>
 
-        form = ExpenseForm(request.POST)
-        if form.is_valid():
-            print('Check :',e_source.exists())
+                    {% if messages %}
+                    <ul class="messages"
+                        style="color: red;">
+                        {% for message in messages %}
+                        <li {% if message.tags %}
+                            class="{{ message.tags }}"
+                            {% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
 
-            source_name = form.cleaned_data['source_name']
-            total_amount = form.cleaned_data['total_amount']
-            user = request.user  
-            print('Check 3 :',e_source.exists())
+                    <form action="{% url 'add_expense' %}" method="post">
+                        {% csrf_token %}
+                        <div>
+                            <label class="col-form-label">Source Name</label>
+                            <input type="text" class="form-control"
+                                name="source_name" required>
+                        </div>
+                        <div>
+                            <label class="col-form-label">Total Amount</label>
+                            <input type="number" class="form-control"
+                                name="total_amount" required>
+                        </div>
+                        <div>
+                            <br>
+                            <button class="btn btn-primary"
+                                type="submit">Add</button>
+                        </div>
+                    </form>
+                </div>
 
-# yaha source ko create krna hay 
-            source = ExpenseSource.objects.get(source_name=source_name)
-            print('Check 4:',e_source.exists())
-
-
-            print('Check 4.5:',e_source.exists())
-            
-            expense = Expense.objects.create(user=user, source=source, total_amount=total_amount)
-            print('Check 5:',e_source.exists())
-            
-            expenses = Expense.objects.all()
-            print('Check 6:',e_source.exists())
-
-            return render(request, 'add_expense.html', {'form': form, 'expenses': expenses})
-    else:
-        form = ExpenseForm()
-
-    return render(request, 'add_expense.html', {'form': form, 'expenses': expenses})
+            </div>

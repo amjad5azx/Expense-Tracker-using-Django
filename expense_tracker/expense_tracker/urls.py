@@ -29,6 +29,8 @@ urlpatterns = [
     path('profile/', views.profile, name='profile'),
     path('logout/',views.logout_view,name='logout'),
     path('add/', views.add_expense, name='add_expense'),
+    path('expense-chart/',views.expense_chart,name='expense_chart'),
+    path('delete_expense/<str:source>/', views.delete_expense, name='delete_expense'),
 
     #testig only
     path('fullname/', views.fullname, name='fullname'),

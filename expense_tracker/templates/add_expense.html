@@ -18,6 +18,9 @@
             rel="stylesheet">
         <script
             src="{% static 'AOS/unpkg.com_aos@2.3.1_dist_aos.js' %}"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     </head>
     <body>
 
@@ -53,61 +56,167 @@
             </nav>
             <div style="margin-top: 10%;">
                 <div class="container col-md-5 shadow-lg"
-                                style="margin-left: auto;margin-right: auto;border: 2px solid;margin-top:5%;margin-bottom:5%;padding-top: 1%;padding-bottom: 2%;">
-                                <h1 style="text-align: center;">Add Source</h1>
-                                <form action="{% url 'add_expense' %}" method="post">
-                                    {% csrf_token %}
-                                    <div>
-                                        <label class="col-form-label">Source Name</label>
-                                        <input type="text" class="form-control" name="source_name">
-                                    </div>
-                                    <div>
-                                        <label class="col-form-label">Total Amount</label>
-                                        <input type="number" class="form-control" name="total_amount">
-                                    </div>
-                                    <div>
-                                        <br>
-                                        <button class="btn btn-primary"
-                                            type="submit">Add </button>
-                                    </div>
-                                </form>
-                            </div>
+                    style="margin-left: auto;margin-right: auto;border: 2px solid;margin-top:5%;margin-bottom:5%;padding-top: 1%;padding-bottom: 2%;">
+                    <h1 style="text-align: center;">Add Source</h1>
+
+                    {% if messages %}
+                    <ul class="messages"
+                        style="color: red;">
+                        {% for message in messages %}
+                        <li {% if message.tags %}
+                            class="{{ message.tags }}"
+                            {% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+
+                    <form action="{% url 'add_expense' %}" method="post">
+                        {% csrf_token %}
+                        <div>
+                            <label class="col-form-label">Source Name</label>
+                            <input type="text" class="form-control"
+                                name="source_name" required>
+                        </div>
+                        <div>
+                            <label class="col-form-label">Total Amount</label>
+                            <input type="number" class="form-control"
+                                name="total_amount" required>
+                        </div>
+                        <div>
+                            <br>
+                            <button class="btn btn-primary"
+                                type="submit">Add</button>
+                        </div>
+                    </form>
+                </div>
+
             </div>
             <!-- table ka code hay ye -->
             {% if expenses %}
-    <div class="expenses-table">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>User</th>
-                    <th>Source</th>
-                    <th>Total Amount</th>
-                    <th>Spent Amount</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for expense in expenses %}
-                <tr>
-                    <td>{{ expense.user.username }}</td>
-                    <td>{{ expense.source.source_name }}</td>
-                    <td>{{ expense.total_amount }}</td>
-                    <td>{{ expense.spent_amount }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-{% else %}
-<div class="container col-md-5 shadow-lg"
-style="margin-left: auto;margin-right: auto;border: 2px solid;margin-top:5%;margin-bottom:5%;padding-top: 1%;padding-bottom: 2%;">
-    <p class="text-muted">No expenses available.</p>
-</div>
-{% endif %}
+            <div class="container shadow-lg">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Source</th>
+                            <th>Total Amount</th>
+                            <th>Spent Amount</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for expense in expenses %}
+                        <tr>
+                            <td>{{ expense.source.source_name }}</td>
+                            <td>{{ expense.total_amount }}</td>
+                            <td>{{ expense.spent_amount }}</td>
+                            <td>
+                                <!-- Add update and delete buttons with source name in URLs -->
+                                <a href="#"
+                                   class="btn btn-primary">Update</a>
+                                <a
+                                    href="{% url 'delete_expense' source=expense.source.source_name %}"
+                                    class="btn btn-danger">Delete</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="container col-md-5 shadow-lg"
+                style="margin-left: auto;margin-right: auto;border: 2px solid;margin-top:5%;margin-bottom:5%;padding-top: 1%;padding-bottom: 2%;">
+                <p class="text-muted">No expenses available.</p>
+            </div>
+            {% endif %}
+        </div>
+        {% if expenses %}
+        <div class="container col-md-5 shadow-lg"
+            style="margin-left: auto;margin-right: auto;border: 2px solid;margin-top:5%;margin-bottom:5%;padding-top: 1%;padding-bottom: 2%;">
+            <canvas id="expenseChart"></canvas>
+
         </div>
 
+        <div class="container col-md-5 shadow-lg"
+            style="margin-left: auto;margin-right: auto;border: 2px solid;margin-top:5%;margin-bottom:5%;padding-top: 1%;padding-bottom: 2%;">
+            <canvas id="expenseChart2"></canvas>
+
+        </div>
+        {% endif %}
+
+        <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var ctx = document.getElementById('expenseChart').getContext('2d');
+        var amountData = {{ amount_data|safe }};
+        
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: amountData.labels,
+                datasets: [{
+                    label: 'Total Amount',
+                    data: amountData.data,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Source Name'
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+
+        // second chart
+    var ctx2 = document.getElementById('expenseChart2').getContext('2d');
+            var spent_amountData = {{ spent_amount_data|safe }};
+            
+            var myChart2 = new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: spent_amountData.labels,
+                    datasets: [{
+                        label: 'Spent Amount',
+                        data: spent_amountData.data,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        xAxes: [{
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Source Name'
+                            }
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+    });
+
+    
+</script>
+
     </body>
-     <!-- footer -->
-     <footer class="blockquote-footer">
+    <!-- footer -->
+    <footer class="blockquote-footer">
         <p style="font-weight: bold;">Developed By:</p>
         <p><a href="https://my-portfolio-cqip.vercel.app/"
                 target="_blank">Muhammad Amjad</a></p>

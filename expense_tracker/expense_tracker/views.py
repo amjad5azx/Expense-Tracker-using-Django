@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import get_object_or_404,render,redirect
 from django.contrib import messages
 
 from django.contrib.auth.models import User
@@ -7,8 +7,10 @@ from django.contrib.auth.decorators import login_required
 
 from django.contrib.auth import logout
 
-from .models import Expense, ExpenseSource
+from .models import Expense, ExpenseItem, ExpenseSource
 from .forms import ExpenseForm
+from django.db.models import Sum
+from django.http import JsonResponse
 
 
 
@@ -68,6 +70,21 @@ def profile(request):
 
 @login_required
 def add_expense(request):
+    user = request.user
+    expenses = Expense.objects.filter(user=user)
+
+    amount_data={
+        'labels':[expense.source.source_name for expense in expenses],
+        'data':[float(expense.total_amount) for expense in expenses]
+    }
+    print(amount_data)
+
+    spent_amount_data={
+        'labels':[expense.source.source_name for expense in expenses],
+        'data':[float(expense.spent_amount) for expense in expenses]
+    }
+    print(spent_amount_data)
+
     expenses = Expense.objects.filter(user=request.user)
     e_source=ExpenseSource.objects.all()
     print(e_source.exists())
@@ -92,7 +109,8 @@ def add_expense(request):
             print('Check 3 :',existing_source==None)
 
             if existing_source:
-                message = f"Source '{source_name}' already exists for the user."
+                messages.error(request, 'Same source already exists')
+                return redirect('add_expense')
             else:
                 source = ExpenseSource.objects.create(user=user, source_name=source_name)
                 message = f"Source '{source_name}' has been created for the user."
@@ -101,13 +119,36 @@ def add_expense(request):
 
                 expenses = Expense.objects.all()
 
+                return redirect('add_expense')
+                
 
-            return render(request, 'add_expense.html', {'form': form, 'expenses': expenses})
+            # return render(request, 'add_expense.html', {'form': form, 'expenses': expenses,'amount_data': amount_data,'spent_amount_data': spent_amount_data})
     else:
         form = ExpenseForm()
 
-    return render(request, 'add_expense.html', {'form': form, 'expenses': expenses})
+    return render(request, 'add_expense.html', {'form': form, 'expenses': expenses,'amount_data': amount_data,'spent_amount_data': spent_amount_data})
 
+@login_required
+def delete_expense(request, source):
+    user = request.user
+    expense = get_object_or_404(Expense, user=user, source__source_name=source)
+    expense_source=get_object_or_404(ExpenseSource, user=user, source_name=source)
+    expense_items = ExpenseItem.objects.filter(user=user, source=expense_source)
+
+    if request.method == 'POST':
+        for expense_item in expense_items:
+            expense_item.delete()
+
+        expense.delete()
+        expense_source.delete()
+        return redirect('add_expense')
+
+    return render(request, 'delete_expense.html', {'source_name': source})
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('index')
 
 # for tesing only
 @login_required
@@ -126,6 +167,18 @@ def email(request):
     return render(request, 'email.html', {'user_info': user_info})
 
 
-def logout_view(request):
-    logout(request)
-    return redirect('index')
+
+
+
+#expense chart
+@login_required
+def expense_chart(request):
+    user = request.user
+    expenses = Expense.objects.filter(user=user)
+
+    spent_amount_data={
+        'labels':[expense.source.source_name for expense in expenses],
+        'data':[float(expense.spent_amount) for expense in expenses]
+    }
+    print(spent_amount_data)
+    return render(request, 'expense-chart.html', {'spent_amount_data': spent_amount_data})

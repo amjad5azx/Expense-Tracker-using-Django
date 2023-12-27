@@ -1,34 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Confirm Deletion</title>
     <!-- Bootstrap CSS link -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Your custom styles if any -->
-    <style>
-        /* Add your custom styles here */
-    </style>
-</head>
-<body>
-    <div class="container col-md-5 shadow-lg"
-        style="margin-left: auto;margin-right: auto;border: 2px solid;margin-top:5%;margin-bottom:5%;padding-top: 1%;padding-bottom: 2%;">
-        <h1 style="text-align: center;">Confirm Deletion</h1>
-        <p>Are you sure you want to delete the expense for "{{ source_name }}"?</p>
-        <form method="post" action="{% url 'delete_expense' source=source_name %}">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-danger">Delete</button>
-            <a href="{% url 'add_expense' %}" class="btn btn-secondary">Cancel</a>
-        </form>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div
+      class="container col-md-5 shadow-lg"
+      style="
+        margin-left: auto;
+        margin-right: auto;
+        border: 2px solid;
+        margin-top: 5%;
+        margin-bottom: 5%;
+        padding-top: 1%;
+        padding-bottom: 2%;
+      "
+    >
+      <h1 style="text-align: center">Confirm Deletion</h1>
+      <p>
+        Are you sure you want to delete the expense for "{{ source_name }}"?
+      </p>
+      <form
+        method="post"
+        action="{% url 'delete_expense' source=source_name %}"
+      >
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a href="{% url 'add_expense' %}" class="btn btn-secondary">Cancel</a>
+      </form>
     </div>
-    <!-- Bootstrap JS and Popper.js script links (required for Bootstrap) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- Your custom scripts if any -->
-    <script>
-        // Add your custom scripts here
-    </script>
-</body>
+    <script></script>
+  </body>
 </html>

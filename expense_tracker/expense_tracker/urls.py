@@ -29,13 +29,10 @@ urlpatterns = [
     path('profile/', views.profile, name='profile'),
     path('logout/',views.logout_view,name='logout'),
     path('add/', views.add_expense, name='add_expense'),
-    path('expense-chart/',views.expense_chart,name='expense_chart'),
     path('delete_expense/<str:source>/', views.delete_expense, name='delete_expense'),
-
-    #testig only
-    path('fullname/', views.fullname, name='fullname'),
-    path('username/', views.username, name='username'),
-    path('email/', views.email, name='email'),
+    path('update_amount/<str:source>/', views.update_amount_view, name='update_amount'),
+    path('add_item/<str:source_name>/', views.add_item, name='add_item'),
+    path('delete_item/<str:source>/<int:item_id>/', views.delete_item, name='delete_item'),
     
     path('admin/', admin.site.urls),
 ]

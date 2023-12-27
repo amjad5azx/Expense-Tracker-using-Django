@@ -10,6 +10,7 @@ class ExpenseSource(models.Model):
 
 
 class ExpenseItem(models.Model):
+    id = models.BigAutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     source = models.ForeignKey(ExpenseSource, on_delete=models.CASCADE)
     item_name = models.CharField(max_length=255)

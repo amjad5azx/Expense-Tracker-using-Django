@@ -1,37 +1,23 @@
-<div style="margin-top: 10%;">
-                <div class="container col-md-5 shadow-lg"
-                    style="margin-left: auto;margin-right: auto;border: 2px solid;margin-top:5%;margin-bottom:5%;padding-top: 1%;padding-bottom: 2%;">
-                    <h1 style="text-align: center;">Add Source</h1>
+@login_required
+def add_item(request, source_name):
+    user = request.user
+    expense = get_object_or_404(Expense, user=user, source__source_name=source_name)
+    expense_items = ExpenseItem.objects.filter(user=user, source=expense.source)
 
-                    {% if messages %}
-                    <ul class="messages"
-                        style="color: red;">
-                        {% for message in messages %}
-                        <li {% if message.tags %}
-                            class="{{ message.tags }}"
-                            {% endif %}>{{ message }}</li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
+    if request.method == 'POST':
+        form = ItemForm(request.POST)
+        if form.is_valid():
+            if expense.total_amount - expense_items.price < 0:
+                messages.error(request, f"You can't purchase '{expense_items.item_name}'. Insufficient funds.")
+            else:
+                ExpenseItem.objects.create(user=user, source=expense.source, item_name=expense_items.item_name, price=price)
 
-                    <form action="{% url 'add_expense' %}" method="post">
-                        {% csrf_token %}
-                        <div>
-                            <label class="col-form-label">Source Name</label>
-                            <input type="text" class="form-control"
-                                name="source_name" required>
-                        </div>
-                        <div>
-                            <label class="col-form-label">Total Amount</label>
-                            <input type="number" class="form-control"
-                                name="total_amount" required>
-                        </div>
-                        <div>
-                            <br>
-                            <button class="btn btn-primary"
-                                type="submit">Add</button>
-                        </div>
-                    </form>
-                </div>
+                expense.total_amount -= expense_items.price
+                expense.spent_amount += expense_items.price
+                expense.save()
 
-            </div>
+                return redirect('add_item', source_name=source_name)
+    else:
+        form = ItemForm()
+
+    return render(request, 'add_item.html', {'source_name': source_name, 'expense_items': expense_items, 'form': form,'expense':expense})

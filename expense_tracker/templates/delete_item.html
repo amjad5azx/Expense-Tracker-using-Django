@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Delete Item</title>
+        <link rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="container col-md-5 shadow-lg"
+            style="margin-left: auto;margin-right: auto;border: 2px solid;margin-top:5%;margin-bottom:5%;padding-top: 1%;padding-bottom: 2%;">
+            <h1 style="text-align: center;">Confirm Deletion</h1>
+            <p>Are you sure you want to delete the item
+                "{{ item.item_name }}"?</p>
+            <form method="post"
+                action="{% url 'delete_item' source=source_name item_id=item.id %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Delete</button>
+                <a href="{% url 'add_item' source_name=source_name %}"
+                    class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </body>
+</html>

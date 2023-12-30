@@ -1,0 +1,199 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expense Tracker</title>
+
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <script src="{% static 'Jquery/code.jquery.com_jquery-3.7.1.min.js' %}"></script>
+    <script src="{% static 'bootstrap-4.6.2-dist/js/bootstrap.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+
+    <!-- AOS -->
+    <link
+      href="{% static 'AOS/unpkg.com_aos@2.3.1_dist_aos.css' %}"
+      rel="stylesheet"
+    />
+    <script src="{% static 'AOS/unpkg.com_aos@2.3.1_dist_aos.js' %}"></script>
+  </head>
+  <body>
+    <!-- navbar -->
+    <div>
+      <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <a class="navbar-brand" href="{% url 'index' %}">Expense Tracker</a>
+        <!-- Add Django URL for 'home' in href -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'index' %}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#SignUp">SignUp</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'login' %}">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'about' %}">About</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <div class="container-fluid no-gutters m-0 p-0" style="overflow-x: hidden">
+      <div class="row no-gutters p-0 m-0">
+        <div
+          class="col-md-12 p-0 no-gutters m-0"
+          style="height: 100%; width: 100%"
+        >
+          <img
+            src="{% static 'Assets/ii.png' %}"
+            alt
+            style="background: cover"
+          />
+        </div>
+      </div>
+      <div>
+        <div class="row mt-5">
+          <div class="col-sm-12 text-center">
+            <div
+              data-aos="fade-down"
+              data-aos-easing="linear"
+              data-aos-duration="500"
+            >
+              <div>
+                <h1 style="text-align: center; padding-bottom: 3%">
+                  About Us
+                </h1>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr />
+        <!-- first portion -->
+        <div class="row">
+          <div class="col-lg-12">
+            <div
+              data-aos="fade-right"
+              data-aos-easing="linear"
+              data-aos-duration="500"
+            >
+              <div>
+                <div class="p-5">
+                    <section>
+                        <h2>Our Mission</h2>
+                        <p>At Expense Tracker, our mission is to empower individuals to manage their finances efficiently by providing a simple and effective expense tracking solution. We believe in helping users gain control over their spending habits and achieve financial well-being.</p>
+                    </section>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      <hr />
+
+         <!-- Second portion -->
+         <div class="row">
+            <div class="col-lg-12">
+              <div
+                data-aos="fade-right"
+                data-aos-easing="linear"
+                data-aos-duration="500"
+              >
+                <div>
+                  <div class="p-5">
+                    <section>
+                        <h2>Key Features</h2>
+                        <ul>
+                            <li>Track Your Expenses: Easily record and categorize your daily expenses.</li>
+                            <li>Budget Management: Set and monitor budgets to ensure financial discipline.</li>
+                            <li>Data Visualization: Visualize your spending patterns through insightful charts and graphs.</li>
+                            <li>User-Friendly Interface: Our intuitive interface makes expense tracking a seamless experience.</li>
+                        </ul>
+                    </section>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+          </div>
+          <hr>
+          <!-- Third portion -->
+         <div class="row">
+            <div class="col-lg-12">
+              <div
+                data-aos="fade-right"
+                data-aos-easing="linear"
+                data-aos-duration="500"
+              >
+                <div>
+                  <div class="p-5">
+                    <section>
+                        <h2>Why Choose Expense Tracker?</h2>
+                        <p>Expense Tracker stands out as a user-friendly and feature-rich platform designed to meet the diverse needs of individuals and households. We prioritize data security and privacy, ensuring that your financial information remains confidential and secure.</p>
+                    </section>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+          </div>
+          <hr>
+          <!-- Fourth portion -->
+         <div class="row">
+            <div class="col-lg-12">
+              <div
+                data-aos="fade-right"
+                data-aos-easing="linear"
+                data-aos-duration="500"
+              >
+                <div>
+                  <div class="p-5">
+                    <section>
+                        <h2>Contact Us</h2>
+                        <p>If you have any questions or feedback, feel free to reach out to our support team at <a href="mailto:support@expensetracker.com">support@expensetracker.com</a>.</p>
+                    </section>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+          </div>
+      </div>
+     
+
+    </div>
+
+    <script>
+      AOS.init();
+    </script>
+  </body>
+
+  <!-- footer -->
+  <footer class="blockquote-footer">
+    <p style="font-weight: bold">Developed By:</p>
+    <p>
+      <a href="https://my-portfolio-cqip.vercel.app/" target="_blank"
+        >Muhammad Amjad</a
+      >
+    </p>
+  </footer>
+</html>

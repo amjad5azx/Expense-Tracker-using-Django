@@ -33,6 +33,7 @@ urlpatterns = [
     path('update_amount/<str:source>/', views.update_amount_view, name='update_amount'),
     path('add_item/<str:source_name>/', views.add_item, name='add_item'),
     path('delete_item/<str:source>/<int:item_id>/', views.delete_item, name='delete_item'),
+    path('about/', views.about, name='about'),
     
     path('admin/', admin.site.urls),
 ]

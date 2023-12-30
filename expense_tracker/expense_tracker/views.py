@@ -218,3 +218,6 @@ def delete_item(request, source, item_id):
 def logout_view(request):
     logout(request)
     return redirect('index')
+
+def about(request):
+    return render(request, 'about.html')
